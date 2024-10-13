@@ -1,42 +1,60 @@
-int ft_countint(int num)
-{
-    int total;
-    total = 0;
-    if(num == 0)
-        total ++;
-    if(num < 0)
-    {
-        total++;
-        num *= -1;
-    }
-    while(num > 0)
-    {
-        num /= 10;
-        total++;
-    }
-    return (total);
-}
-char *ft_itoa(int n)
-{   size_t i;
-    char *num;
-    int len;
-    len = ft_countint(n) - 1;
-    num = calloc(ft_countint(n) + 1, sizeof(char));
-    i = 0;
-    if(!num)
-        return (NULL);
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vgetman <vgetman@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/09 12:38:42 by vgetman           #+#    #+#             */
+/*   Updated: 2024/10/11 12:50:11 by vgetman          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-    if(n == 0)
-        num[i] = '0';
-    if(n < 0)
-    {
-        num[i++] = '-';
-        n *= -1;
-    }
-    while(n > 0)
-    {
-        num[len--] = (n%10) + '0';
-        n /= 10;
-        }
-    return(num);
+#include "libft.h"
+
+static int	ft_countint(long num)
+{
+	int	total;
+
+	total = 0;
+	if (num == 0)
+		total++;
+	if (num < 0)
+	{
+		total++;
+		num *= -1;
+	}
+	while (num > 0)
+	{
+		num /= 10;
+		total++;
+	}
+	return (total);
+}
+char	*ft_itoa(int n)
+{
+	char	*num;
+	int		len;
+	long	nbr;
+
+	nbr = (long)n;
+	len = ft_countint(nbr);
+	num = (char *)malloc(len + 1);
+	if (!num)
+		return (NULL);
+	if (nbr == 0)
+		num[0] = '0';
+	if (nbr < 0)
+	{
+		num[0] = '-';
+		nbr *= -1;
+	}
+	num[len] = '\0';
+	while (nbr > 0)
+	{
+		len--;
+		num[len] = (nbr % 10) + '0';
+		nbr /= 10;
+	}
+	return (num);
 }
