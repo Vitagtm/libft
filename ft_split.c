@@ -15,8 +15,7 @@
 static void	*ft_free_word(char **total_words)
 {
 	int	i;
-	if(!total_words || !*total_words)
-		return (NULL);
+
 	i = 0;
 	while (total_words[i])
 	{
@@ -47,25 +46,6 @@ int	ft_wordcount(char const *s, char c)
 	}
 	return (wc);
 }
-char	*ft_fill_word(const char *s, int start, int end, char **matrix)
-{
-	size_t	i;
-	char	*word;
-
-	i = 0;
-	word = (char *)malloc((end - start + 1) * sizeof(char));
-	if (!word || (matrix && !*matrix))
-	{
-		ft_free_word(matrix);
-		return (NULL);
-	}
-	while (start < end)
-	{
-		word[i++] = s[start++];
-	}
-	word[i] = 0;
-	return (word);
-}
 
 
 char	**ft_split(char const *s, char c)
@@ -88,7 +68,7 @@ char	**ft_split(char const *s, char c)
 		end = start;
 		while (s[end] && s[end] != c)
 			end++;
-		totalword[i++] = ft_fill_word(s, start, end, totalword);
+		totalword[i++] = ft_strdup(s, start, end - start);
 		if (!totalword[i])
 			return (ft_free_word(totalword));
 		start = end;
@@ -96,3 +76,17 @@ char	**ft_split(char const *s, char c)
 	totalword[i] = NULL;
 	return (totalword);
 }
+
+/*void main()
+{
+	char *s = "   hola   Mundo   ";
+	int i = 2;
+	char ** doublearray = split(s, " ");
+
+	while(i < 2)
+	{
+		printf(">%s|\n", doublearray[i++]);
+	}
+	return (0);
+
+}*/
