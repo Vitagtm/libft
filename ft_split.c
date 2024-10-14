@@ -12,9 +12,9 @@
 
 #include "libft.h"
 
-static void	*ft_free_word(char **total_words)
+static void *ft_free_word(char **total_words)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (total_words[i])
@@ -26,10 +26,10 @@ static void	*ft_free_word(char **total_words)
 	return (NULL);
 }
 
-int	ft_wordcount(char const *s, char c)
+int ft_wordcount(char const *s, char c)
 {
-	size_t	i;
-	int		wc;
+	size_t i;
+	int wc;
 
 	wc = 0;
 	i = 0;
@@ -47,13 +47,12 @@ int	ft_wordcount(char const *s, char c)
 	return (wc);
 }
 
-
-char	**ft_split(char const *s, char c)
+char **ft_split(char const *s, char c)
 {
-	int		i;
-	char	**totalword;
-	int		start;
-	int		end;
+	int i;
+	char **totalword;
+	int start;
+	int end;
 
 	i = 0;
 	start = 0;
@@ -68,25 +67,11 @@ char	**ft_split(char const *s, char c)
 		end = start;
 		while (s[end] && s[end] != c)
 			end++;
-		totalword[i++] = ft_strdup(s, start, end - start);
-		if (!totalword[i])
+		totalword[i] = ft_substr(s, start, end - start);
+		if (!totalword[i++])
 			return (ft_free_word(totalword));
 		start = end;
 	}
 	totalword[i] = NULL;
 	return (totalword);
 }
-
-/*void main()
-{
-	char *s = "   hola   Mundo   ";
-	int i = 2;
-	char ** doublearray = split(s, " ");
-
-	while(i < 2)
-	{
-		printf(">%s|\n", doublearray[i++]);
-	}
-	return (0);
-
-}*/
