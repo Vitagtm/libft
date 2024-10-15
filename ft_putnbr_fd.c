@@ -20,17 +20,13 @@ void ft_putnbr_fd(int n, int fd)
         {
             write(fd, "-", 1);                
             n = -n;
-            ft_putnbr_fd(n, fd);
         }
         else{
         if(n > 9)
-        {
             ft_putnbr_fd(n / 10, fd);
-            ft_putnbr_fd(n % 10, fd);
-        }
         else
         {
-        c = n + '0';
+        c = (n % 10) + '0';
         write(fd, &c, 1);
         }
         }
